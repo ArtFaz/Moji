@@ -16,7 +16,7 @@ ___
 * **Expressive Syntax:** Write code using intuitive emojis. 
 * **Core Logic:** Full support for variables, conditional logic (`if/else`), and loops (`while`). 
 * **Data Types:** Handles numbers (`🔢`), strings (`🔡`), and booleans (`👍`/`👎`). 
-* **I/O:** Print to the console (`🗣️`) and read user input (`⌨️`). 
+* **I/O:** Print to the console (`🖨️`) and read user input (`🧐`). 
 * **Math Operations:** Standard arithmetic (`➕`, `➖`, `✖️`, `➗`). 
 * **Built in Python:** Uses the powerful _TBD_ library for parsing.
 
