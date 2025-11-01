@@ -18,7 +18,7 @@ ___
 * **Data Types:** Handles numbers (`🔢`), strings (`🔡`), and booleans (`👍`/`👎`). 
 * **I/O:** Print to the console (`🖨️`) and read user input (`🧐`). 
 * **Math Operations:** Standard arithmetic (`➕`, `➖`, `✖️`, `➗`). 
-* **Built in Python:** Uses the powerful _TBD_ library for parsing.
+* **Built in Python:** Uses pure python 🐍 for every step involved.
 
 ## 👋 Hello, Moji!
 
