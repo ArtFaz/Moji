@@ -30,7 +30,41 @@ _TBD_
 
 Bellow is the official dictionary for the Moji language.
 
-_TBD_
+| Category | Emoji | Meaning | Description |
+|-----------|--------|----------|-------------|
+| **Program Structure** | 🌱 | Start Program | Begins the program |
+|  | 🌳 | End Program | Ends the program |
+| **Code Blocks** | 📦 | Start of Code Block | Opens a code block |
+|  | 📦⛔ | End of Code Block | Closes a code block |
+| **Variables** | 🔢 | Integer | Declares an integer variable |
+|  | 👽 | Real | Declares a real (float) variable |
+|  | 💬 | String | Declares a string variable |
+| **Input / Output** | 👀 | Read | Reads input into a variable |
+|  | 🖨️ | Print | Prints variable content |
+| **Math Operations** | ➕ | Add | Addition |
+|  | ➖ | Subtract | Subtraction |
+|  | ✖ | Multiply | Multiplication |
+|  | ➗ | Divide | Division |
+| **Assignment** | 👉 | Assign | Assigns a value to a variable |
+| **Comments & Syntax** | 💭 | Comment | Marks a comment line |
+|  | 🔚 | End Command | End of a statement |
+| **Conditionals** | 🤔 | If | Executes if condition is true |
+|  | 🔀 | Elif | Executes if another condition is true |
+|  | 🤨 | Else | Executes if all conditions are false |
+| **Loops** | 🔁 | Loop | Repeats a code block (for/while) |
+| **Functions** | 🧩 | Function | Defines a function |
+|  | 🔙 | Return | Returns a value |
+| **Logic & Comparison** | ⚖️ | Equals | Compares equality |
+|  | ⬆️ | Greater Than | Checks if greater |
+|  | ⬇️ | Less Than | Checks if smaller |
+|  | 🚫 | Not | Logical negation |
+| **Lists** | 📜 | List | Creates a list |
+|  | ➕📜 | Append | Adds item to a list |
+|  | ➖📜 | Remove | Removes item from a list |
+| **System & Misc.** | ⚙️ | Import | Imports external module |
+|  | 💾 | Save | Saves data |
+|  | ⏱️ | Sleep | Waits or delays execution |
+
 
 ## 🏃‍♂️ How to Run Moji
 
@@ -79,9 +113,49 @@ python main.py examples/hello.moji
 
 Check the `/examples` folder for more sample code!
 
-## 🛠️ Moji was Made by
 
-_TBD_
+## 🛠️ Built with ❤️ by the Moji Team
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/ArtFaz">
+        <img src="https://avatars.githubusercontent.com/ArtFaz" width="80px" style="border-radius:50%;" alt="ArtFaz"/>
+        <br />
+        <sub><b>Arthur Fazioni</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/LuisFelipeFilenga">
+        <img src="https://avatars.githubusercontent.com/LuisFelipeFilenga" width="80px" style="border-radius:50%;" alt="Luis Felipe Filenga"/>
+        <br />
+        <sub><b>Luis Felipe Filenga</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/LeonardoCamposG">
+        <img src="https://avatars.githubusercontent.com/LeonardoCamposG" width="80px" style="border-radius:50%;" alt="Leonardo Campos"/>
+        <br />
+        <sub><b>Leonardo Campos</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Matheus-Kaihara">
+        <img src="https://avatars.githubusercontent.com/Matheus-Kaihara" width="80px" style="border-radius:50%;" alt="Matheus Kaihara"/>
+        <br />
+        <sub><b>Matheus Kaihara</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/MatheusGoes29">
+        <img src="https://avatars.githubusercontent.com/MatheusGoes29" width="80px" style="border-radius:50%;" alt="Matheus Goes"/>
+        <br />
+        <sub><b>Matheus Goes</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
+
 
 
 ___
