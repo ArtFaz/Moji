@@ -1,0 +1,25 @@
+🌱
+💭 Teste de Input, Output e Sistema.
+
+🖨️ "--- Teste de Input (👀) ---" 🔚
+💬 nome 👉 "" 🔚
+🖨️ "Por favor, digite seu nome:" 🔚
+👀 nome 🔚
+🖨️ "Olá, " ➕ nome ➕ "!" 🔚
+
+💭 O Read tenta converter para o tipo da variável
+🔢 idade 👉 0 🔚
+🖨️ "Digite sua idade:" 🔚
+👀 idade 🔚
+🖨️ "Você digitou: " ➕ idade 🔚
+
+🖨️ "--- Teste de Sistema (💾 e ⏱️) ---" 🔚
+🖨️ "Vou dormir por 2.5 segundos..." 🔚
+⏱️ 2.5 🔚
+🖨️ "Acordei!" 🔚
+
+💬 conteudo 👉 "Este arquivo foi salvo pelo Moji!" 🔚
+💾 conteudo "moji_save_test.txt" 🔚
+🖨️ "Arquivo 'moji_save_test.txt' foi salvo." 🔚
+
+🌳

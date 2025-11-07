@@ -1,0 +1,25 @@
+🌱
+💭 Este é um "Olá, Mundo!" e teste de matemática.
+
+💬 ola 👉 "Olá" 🔚
+💬 mundo 👉 "Moji!" 🔚
+🖨️ ola ➕ " " ➕ mundo 🔚 💭 Concatenação de strings
+
+💭 --- Teste de Matemática ---
+🔢 a 👉 10 🔚
+👽 b 👉 5.5 🔚
+
+💭 O Parser não suporta parênteses em expressões,
+💭 então salvamos os resultados em variáveis primeiro.
+
+👽 soma 👉 a ➕ b 🔚
+👽 sub 👉 a ➖ b 🔚
+🔢 mult 👉 a ✖️ 2 🔚
+👽 div 👉 a ➗ 2 🔚
+
+🖨️ "Soma (10 + 5.5): " ➕ soma 🔚
+🖨️ "Subtração (10 - 5.5): " ➕ sub 🔚
+🖨️ "Multiplicação (10 * 2): " ➕ mult 🔚
+🖨️ "Divisão (10 / 2): " ➕ div 🔚
+
+🌳

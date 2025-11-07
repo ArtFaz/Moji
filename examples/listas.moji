@@ -1,0 +1,21 @@
+🌱
+💭 Teste de Listas (📜).
+
+📜 minhaLista 🔚 💭 Declara uma lista vazia automaticamente
+
+🖨️ "--- Append (➕📜) ---" 🔚
+minhaLista ➕📜 "item A" 🔚
+minhaLista ➕📜 "item B" 🔚
+minhaLista ➕📜 123 🔚
+
+🖨️ "Lista após appends:" 🔚
+🖨️ minhaLista 🔚
+
+🖨️ "--- Remove (➖📜) ---" 🔚
+💭 Remove o item no índice 1 ("item B")
+minhaLista ➖📜 1 🔚
+
+🖨️ "Lista após remover índice 1:" 🔚
+🖨️ minhaLista 🔚
+
+🌳
