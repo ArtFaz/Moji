@@ -1,7 +1,8 @@
 # Moji 🐻 
 ### An Emoji-Powered Programming Language
 
-[![Status](https://img.shields.io/badge/status-in_development-yellow.svg)](https://github.com/[Your-Username]/moji-lang) 
+[![Status](https://img.shields.io/badge/status-stable-green.svg)](https://github.com/ArtFaz/Moji)
+[![Latest Release](https://img.shields.io/github/v/release/ArtFaz/Moji)](https://github.com/ArtFaz/moji/releases/latest)
 [![Language](https://img.shields.io/badge/language-Python-blue.svg)](https://www.python.org/) 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
