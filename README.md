@@ -5,26 +5,42 @@
 [![Language](https://img.shields.io/badge/language-Python-blue.svg)](https://www.python.org/) 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-Moji is a fully functional interpreter for a programming language that uses emojis as its core syntax. Instead of `if`, `while`, or `print`, Moji uses `🤔`, `🔁`, and `🖨️`. 
+Moji is a fully functional interpreter for a programming language that uses emojis as its core syntax. Instead of `if`, `else`, or `print`, Moji uses `🤔`, `🤨`, and `🖨️`. 
 
 This project was created as the final assignment for the Compiler course at Unisagrado.
 
 ___
 
-## ✨ Features 
+## ✨ Features
 
-* **Expressive Syntax:** Write code using intuitive emojis. 
-* **Core Logic:** Full support for variables, conditional logic (`if/else`), and loops (`while`). 
-* **Data Types:** Handles numbers (`🔢`), strings (`🔡`), and booleans (`👍`/`👎`). 
-* **I/O:** Print to the console (`🖨️`) and read user input (`🧐`). 
-* **Math Operations:** Standard arithmetic (`➕`, `➖`, `✖️`, `➗`). 
+* **Expressive Syntax:** Write code using intuitive emojis.
+* **Core Logic:** Full support for variables and conditional logic (`if/elif/else`).
+* **Data Types:** Handles Integers (`🔢`), Reals/Floats (`👽`), and Strings (`💬`).
+* **I/O:** Print to the console (`🖨️`) and read user input (`👀`).
+* **Math Operations:** Standard arithmetic (`➕`, `➖`, `✖️`, `➗`).
+* **List Support:** Basic list creation (`📜`), append (`➕📜`), and remove (`➖📜`).
+* **System Tools:** Save to file (`💾`) and pause execution (`⏱️`).
 * **Built in Python:** Uses pure python 🐍 for every step involved.
 
 ## 👋 Hello, Moji!
 
-Here’s a simple "Hello, World!" program in Moji:
+Here’s a simple "Hello, World!" program in Moji that also shows variable math:
 
-_TBD_
+```
+🌱
+💭 This is a "Hello World!" and math test.
+
+💬 hello 👉 "Hello" 🔚
+💬 world 👉 "Moji!" 🔚
+🖨️ hello ➕ " " ➕ world 🔚 💭 String concatenation
+
+🔢 a 👉 10 🔚
+👽 b 👉 5.5 🔚
+👽 sum 👉 a ➕ b 🔚
+
+🖨️ "Sum (10 + 5.5): " ➕ sum 🔚
+🌳
+```
 
 ## 📖 The Great Moji-pedia (Language Reference)
 
@@ -33,37 +49,33 @@ Bellow is the official dictionary for the Moji language.
 | Category | Emoji | Meaning | Description |
 |-----------|--------|----------|-------------|
 | **Program Structure** | 🌱 | Start Program | Begins the program |
-|  | 🌳 | End Program | Ends the program |
+| | 🌳 | End Program | Ends the program |
 | **Code Blocks** | 📦 | Start of Code Block | Opens a code block |
-|  | 📦⛔ | End of Code Block | Closes a code block |
+| | 📦⛔ | End of Code Block | Closes a code block |
 | **Variables** | 🔢 | Integer | Declares an integer variable |
-|  | 👽 | Real | Declares a real (float) variable |
-|  | 💬 | String | Declares a string variable |
+| | 👽 | Real | Declares a real (float) variable |
+| | 💬 | String | Declares a string variable |
+| | 📜 | List | Creates a list |
 | **Input / Output** | 👀 | Read | Reads input into a variable |
-|  | 🖨️ | Print | Prints variable content |
+| | 🖨️ | Print | Prints variable content |
 | **Math Operations** | ➕ | Add | Addition |
-|  | ➖ | Subtract | Subtraction |
-|  | ✖ | Multiply | Multiplication |
-|  | ➗ | Divide | Division |
+| | ➖ | Subtract | Subtraction |
+| | ✖️ | Multiply | Multiplication |
+| | ➗ | Divide | Division |
 | **Assignment** | 👉 | Assign | Assigns a value to a variable |
 | **Comments & Syntax** | 💭 | Comment | Marks a comment line |
-|  | 🔚 | End Command | End of a statement |
+| | 🔚 | End Command | End of a statement |
 | **Conditionals** | 🤔 | If | Executes if condition is true |
-|  | 🔀 | Elif | Executes if another condition is true |
-|  | 🤨 | Else | Executes if all conditions are false |
-| **Loops** | 🔁 | Loop | Repeats a code block (for/while) |
-| **Functions** | 🧩 | Function | Defines a function |
-|  | 🔙 | Return | Returns a value |
+| | 🔀 | Elif | Executes if another condition is true |
+| | 🤨 | Else | Executes if all conditions are false |
 | **Logic & Comparison** | ⚖️ | Equals | Compares equality |
-|  | ⬆️ | Greater Than | Checks if greater |
-|  | ⬇️ | Less Than | Checks if smaller |
-|  | 🚫 | Not | Logical negation |
-| **Lists** | 📜 | List | Creates a list |
-|  | ➕📜 | Append | Adds item to a list |
-|  | ➖📜 | Remove | Removes item from a list |
-| **System & Misc.** | ⚙️ | Import | Imports external module |
-|  | 💾 | Save | Saves data |
-|  | ⏱️ | Sleep | Waits or delays execution |
+| | ⬆️ | Greater Than | Checks if greater |
+| | ⬇️ | Less Than | Checks if smaller |
+| | 🚫 | Not | Logical negation |
+| **Lists** | ➕📜 | Append | Adds item to a list |
+| | ➖📜 | Remove | Removes item from a list |
+| **System & Misc.** | 💾 | Save | Saves data |
+| | ⏱️ | Sleep | Waits or delays execution |
 
 
 ## 🏃‍♂️ How to Run Moji
@@ -83,8 +95,8 @@ You can run Moji on your local machine by following these steps:
 **Clone the repository:**
 
 ```bash
-git clone TBD
-cd TBD
+git clone https://github.com/ArtFaz/Moji
+cd moji
 ```
 
 **Create and activate a virtual environment (recommended):**
@@ -107,8 +119,8 @@ pip install -r requirements.txt
 
 **Run a Moji file:** To run a Moji program (we use the `.moji` file extension), pass the file path to our main interpreter script:
 
-```
-python main.py examples/hello.moji
+```bash
+python main.py examples/condicionais.moji
 ```
 
 Check the `/examples` folder for more sample code!
