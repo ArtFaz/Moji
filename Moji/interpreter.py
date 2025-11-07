@@ -2,9 +2,9 @@
 
 import time
 
-# Importa todos os nós, pois o interpretador precisa saber como "visitar" cada um
+# Import all nodes, as the interpreter needs to know how to "visit" each one
 from .ast_nodes import *
-# Importa os tipos de token para checagem (ex: tipo de operação)
+# Import token types for checking (e.g., operation type)
 from .token import (
     TT_OP_PLUS, TT_OP_MINUS, TT_OP_MUL, TT_OP_DIV,
     TT_COMP_EQ, TT_COMP_GT, TT_COMP_LT, TT_LOGIC_NOT,
@@ -13,46 +13,46 @@ from .token import (
 
 
 ################################################################################
-# 1. ERRO DE EXECUÇÃO
+# 1. RUNTIME ERROR
 ################################################################################
 
 class RuntimeError(Exception):
     def __init__(self, message):
-        # Erros que acontecem durante a *execução* do código Mojji
-        super().__init__(f"Erro de Execução: {message}")
+        # Errors that happen during the *execution* of Moji code
+        super().__init__(f"Runtime Error: {message}")
 
 
 ################################################################################
-# 2. CLASSE INTERPRETER
+# 2. INTERPRETER CLASS
 ################################################################################
 
 class Interpreter:
     def __init__(self):
-        # A Tabela de Símbolos (memória) que armazena as variáveis
+        # The Symbol Table (memory) that stores variables
         self.symbol_table = {}
 
     def visit(self, node):
         """
-        O "roteador" principal.
-        Chama o método 'visit_NODE' específico com base no tipo do nó.
-        Ex: Se 'node' é um 'PrintNode', ele chama 'self.visit_PrintNode(node)'
+        The main "router".
+        Calls the specific 'visit_NODE' method based on the node's type.
+        E.g.: If 'node' is a 'PrintNode', it calls 'self.visit_PrintNode(node)'
         """
         method_name = f'visit_{type(node).__name__}'
         method = getattr(self, method_name, self.no_visit_method)
         return method(node)
 
     def no_visit_method(self, node):
-        """ Método de fallback se um 'visit_' não for implementado. """
-        raise RuntimeError(f"Nenhum método 'visit_{type(node).__name__}' definido")
+        """ Fallback method if a 'visit_' is not implemented. """
+        raise RuntimeError(f"No 'visit_{type(node).__name__}' method defined")
 
     def run(self, ast):
-        """ Ponto de entrada público para executar a AST. """
+        """ Public entry point to execute the AST. """
         try:
             return self.visit(ast)
         except RuntimeError as e:
             print(e)
 
-    # --- NÓS DE "FOLHA" (que retornam valores) ---
+    # --- "LEAF" NODES (that return values) ---
 
     def visit_NumberNode(self, node):
         return node.value
@@ -61,32 +61,30 @@ class Interpreter:
         return node.value
 
     def visit_VarAccessNode(self, node):
-        """ Lê um valor da tabela de símbolos. """
+        """ Reads a value from the symbol table. """
         var_name = node.var_name
         value = self.symbol_table.get(var_name)
 
         if value is None:
-            raise RuntimeError(f"Variável '{var_name}' não foi definida.")
+            raise RuntimeError(f"Variable '{var_name}' has not been defined.")
 
         return value
 
-    # --- NÓS DE OPERAÇÃO (que calculam valores) ---
+    # --- OPERATION NODES (that calculate values) ---
 
     def visit_BinOpNode(self, node):
-        """ Executa operações binárias (ex: 1 ➕ 2, x ⚖️ 10). """
+        """ Executes binary operations (e.g., 1 ➕ 2, x ⚖️ 10). """
         left_val = self.visit(node.left_node)
         right_val = self.visit(node.right_node)
         op_type = node.op_token.type
 
-        # Operações Matemáticas
+        # Mathematical Operations
         if op_type == TT_OP_PLUS:
-            # *** INÍCIO DA CORREÇÃO ***
-            # Se um dos lados for string, força a concatenação
+            # If one side is a string, force concatenation
             if isinstance(left_val, str) or isinstance(right_val, str):
                 return str(left_val) + str(right_val)
-            # Senão, é adição numérica
+            # Otherwise, it's numeric addition
             return left_val + right_val
-            # *** FIM DA CORREÇÃO ***
 
         elif op_type == TT_OP_MINUS:
             return left_val - right_val
@@ -94,10 +92,10 @@ class Interpreter:
             return left_val * right_val
         elif op_type == TT_OP_DIV:
             if right_val == 0:
-                raise RuntimeError("Divisão por zero.")
+                raise RuntimeError("Division by zero.")
             return left_val / right_val
 
-        # Operações de Comparação
+        # Comparison Operations
         elif op_type == TT_COMP_EQ:
             return left_val == right_val
         elif op_type == TT_COMP_GT:
@@ -105,42 +103,42 @@ class Interpreter:
         elif op_type == TT_COMP_LT:
             return left_val < right_val
 
-        raise RuntimeError(f"Operador binário desconhecido: {op_type}")
+        raise RuntimeError(f"Unknown binary operator: {op_type}")
 
     def visit_UnaryOpNode(self, node):
-        """ Executa operações unárias (ex: 🚫 x). """
+        """ Executes unary operations (e.g., 🚫 x). """
         op_type = node.op_token.type
         value = self.visit(node.node)
 
         if op_type == TT_LOGIC_NOT:
-            return not value  # Negação booleana do Python
+            return not value  # Python's boolean negation
 
-        raise RuntimeError(f"Operador unário desconhecido: {op_type}")
+        raise RuntimeError(f"Unknown unary operator: {op_type}")
 
-    # --- NÓS DE COMANDO (Statements) ---
+    # --- STATEMENT NODES ---
 
     def visit_ProgramNode(self, node):
-        """ Executa cada comando do programa. """
+        """ Executes each statement in the program. """
         for statement in node.statements:
-            self.visit(statement)  # Não esperamos retorno
+            self.visit(statement)  # We don't expect a return value
 
     def visit_BlockNode(self, node):
-        """ Executa cada comando de um bloco. """
+        """ Executes each statement in a block. """
         for statement in node.statements:
             self.visit(statement)
 
     def visit_VarDeclareNode(self, node):
-        """ Cria uma nova variável na tabela de símbolos. """
+        """ Creates a new variable in the symbol table. """
         var_name = node.var_name_token.value
 
         if var_name in self.symbol_table:
-            raise RuntimeError(f"Variável '{var_name}' já foi declarada.")
+            raise RuntimeError(f"Variable '{var_name}' has already been declared.")
 
-        # Se um valor foi fornecido (ex: 🔢 x 👉 10)
+        # If a value was provided (e.g., 🔢 x 👉 10)
         if node.value_node:
             value = self.visit(node.value_node)
         else:
-            # Se não, usa um valor padrão baseado no tipo
+            # Otherwise, use a default value based on the type
             if node.var_type_token.type == TT_KEYWORD_INT:
                 value = 0
             elif node.var_type_token.type == TT_KEYWORD_REAL:
@@ -150,35 +148,35 @@ class Interpreter:
             elif node.var_type_token.type == TT_KEYWORD_LIST:
                 value = []
             else:
-                value = None  # Tipo desconhecido?
+                value = None  # Unknown type?
 
         self.symbol_table[var_name] = value
 
     def visit_VarAssignNode(self, node):
-        """ Atualiza o valor de uma variável existente. """
+        """ Updates the value of an existing variable. """
         var_name = node.var_name
 
         if var_name not in self.symbol_table:
-            raise RuntimeError(f"Variável '{var_name}' não foi declarada. Use 🔢, 💬, etc. para declarar.")
+            raise RuntimeError(f"Variable '{var_name}' not declared. Use 🔢, 💬, etc. to declare.")
 
         value = self.visit(node.value_node)
         self.symbol_table[var_name] = value
 
     def visit_PrintNode(self, node):
-        """ Imprime um valor no console. """
+        """ Prints a value to the console. """
         value_to_print = self.visit(node.node_to_print)
         print(value_to_print)
 
     def visit_ReadNode(self, node):
-        """ Lê um input do usuário e salva na variável. """
+        """ Reads user input and saves it to the variable. """
         var_name = node.var_name
 
         if var_name not in self.symbol_table:
-            raise RuntimeError(f"Variável '{var_name}' não declarada. Impossível ler (read).")
+            raise RuntimeError(f"Variable '{var_name}' not declared. Cannot read.")
 
-        # Pega o tipo *atual* da variável para tentar converter o input
+        # Get the *current* type of the variable to try converting the input
         current_value = self.symbol_table[var_name]
-        input_str = input(f"Digite o valor para {var_name}: ")
+        input_str = input(f"Enter value for {var_name}: ")
 
         try:
             if isinstance(current_value, int):
@@ -186,37 +184,37 @@ class Interpreter:
             elif isinstance(current_value, float):
                 new_value = float(input_str)
             else:
-                # Se for String, Lista, etc., apenas salva a string
+                # If it's String, List, etc., just save the string
                 new_value = input_str
         except ValueError:
-            raise RuntimeError(f"Input inválido. Esperava um tipo compatível com o de '{var_name}'.")
+            raise RuntimeError(f"Invalid input. Expected a type compatible with '{var_name}'.")
 
         self.symbol_table[var_name] = new_value
 
     def visit_IfNode(self, node):
-        """ Executa blocos condicionais (If/Elif/Else). """
-        # Itera sobre os blocos 'IF' e 'ELIF'
+        """ Executes conditional blocks (If/Elif/Else). """
+        # Iterate over 'IF' and 'ELIF' blocks
         for condition_node, body_node in node.cases:
             condition_value = self.visit(condition_node)
 
-            if condition_value:  # Se a condição for Verdadeira (True)
+            if condition_value:  # If the condition is True
                 self.visit(body_node)
-                return  # Para de checar (só executa um bloco)
+                return  # Stop checking (only execute one block)
 
-        # Se nenhum 'IF/ELIF' foi verdadeiro, checa o 'ELSE'
+        # If no 'IF/ELIF' was true, check 'ELSE'
         if node.else_case:
             self.visit(node.else_case)
 
-    # --- COMANDOS DE LISTA ---
+    # --- LIST COMMANDS ---
 
     def visit_ListAppendNode(self, node):
         list_name = node.list_var_token.value
         list_obj = self.symbol_table.get(list_name)
 
         if list_obj is None:
-            raise RuntimeError(f"Variável de lista '{list_name}' não encontrada.")
+            raise RuntimeError(f"List variable '{list_name}' not found.")
         if not isinstance(list_obj, list):
-            raise RuntimeError(f"'{list_name}' não é uma lista. Impossível usar ➕📜.")
+            raise RuntimeError(f"'{list_name}' is not a list. Cannot use ➕📜.")
 
         value_to_append = self.visit(node.value_node)
         list_obj.append(value_to_append)
@@ -226,87 +224,87 @@ class Interpreter:
         list_obj = self.symbol_table.get(list_name)
 
         if not isinstance(list_obj, list):
-            raise RuntimeError(f"'{list_name}' não é uma lista. Impossível usar ➖📜.")
+            raise RuntimeError(f"'{list_name}' is not a list. Cannot use ➖📜.")
 
         index_to_remove = self.visit(node.index_node)
         if not isinstance(index_to_remove, int):
-            raise RuntimeError("Índice para remover (➖📜) deve ser um inteiro.")
+            raise RuntimeError("Index for removal (➖📜) must be an integer.")
 
         try:
             list_obj.pop(index_to_remove)
         except IndexError:
-            raise RuntimeError(f"Índice {index_to_remove} fora do range da lista '{list_name}'.")
+            raise RuntimeError(f"Index {index_to_remove} out of range for list '{list_name}'.")
 
-    # --- COMANDOS DE SISTEMA ---
+    # --- SYSTEM COMMANDS ---
 
     def visit_SaveNode(self, node):
-        """ 💾 <dado> <nome_arquivo> 🔚 """
+        """ 💾 <data> <filename> 🔚 """
         data = self.visit(node.data_node)
         filename = self.visit(node.filename_node)
 
         if not isinstance(filename, str):
-            raise RuntimeError("Nome do arquivo para 💾 (Salvar) deve ser uma string.")
+            raise RuntimeError("Filename for 💾 (Save) must be a string.")
 
         try:
             with open(filename, 'w', encoding='utf-8') as f:
                 f.write(str(data))
         except Exception as e:
-            raise RuntimeError(f"Falha ao salvar arquivo: {e}")
+            raise RuntimeError(f"Failed to save file: {e}")
 
     def visit_SleepNode(self, node):
-        """ ⏱️ <duração> 🔚 """
+        """ ⏱️ <duration> 🔚 """
         duration = self.visit(node.duration_node)
 
         try:
             time.sleep(float(duration))
         except (ValueError, TypeError):
-            raise RuntimeError("Duração para ⏱️ (Sleep) deve ser um número (int ou real).")
+            raise RuntimeError("Duration for ⏱️ (Sleep) must be a number (int or real).")
 
-    # --- AINDA NÃO IMPLEMENTADOS (Funções, Imports) ---
+    # --- NOT YET IMPLEMENTED (Functions, Imports) ---
 
     def visit_FuncDefNode(self, node):
-        # O Parser cria este nó, mas chamadas de função não estão implementadas no Parser
-        raise NotImplementedError("Definição de função 🧩 não está completamente implementada.")
+        # The Parser creates this node, but function calls are not implemented.
+        raise NotImplementedError("Function definition 🧩 is not fully implemented.")
 
     def visit_ReturnNode(self, node):
-        raise NotImplementedError("Retorno 🔙 não está implementado.")
+        raise NotImplementedError("Return 🔙 is not implemented.")
 
     def visit_ImportNode(self, node):
-        raise NotImplementedError("Import ⚙️ não está implementado.")
+        raise NotImplementedError("Import ⚙️ is not implemented.")
 
 
 ################################################################################
-# 3. Bloco de Teste
+# 3. Test Block
 ################################################################################
 
 if __name__ == '__main__':
-    # Importa as classes necessárias para o teste
+    # Import necessary classes for testing
     from .lexer import Lexer
     from .parser import Parser, SyntaxError
 
     test_code = """
-    🌱 💭 Este é um programa de teste completo!
+    🌱 💭 This is a complete test program!
 
-    💬 meuNome 👉 "Moji" 🔚
-    🖨️ "Olá, " ➕ meuNome 🔚
+    💬 myName 👉 "Moji" 🔚
+    🖨️ "Hello, " ➕ myName 🔚
 
     🔢 x 👉 10 🔚
     🤔 x ⚖️ 10 📦
-        🖨️ "x é 10!" 🔚
+        🖨️ "x is 10!" 🔚
     📦⛔
 
-    🖨️ "--- Teste de Input/Output ---" 🔚
-    🔢 idade 🔚
-    👀 idade 🔚
-    🖨️ "Sua idade é: " ➕ idade 🔚
+    🖨️ "--- Input/Output Test ---" 🔚
+    🔢 age 🔚
+    👀 age 🔚
+    🖨️ "Your age is: " ➕ age 🔚
 
-    💾 "Este é um teste" "teste.txt" 🔚
+    💾 "This is a test" "test.txt" 🔚
 
     🌳
     """
 
-    print(f"--- Executando Código Mojji: ---\n{test_code}")
-    print("--- Início da Execução ---")
+    print(f"--- Executing Moji Code: ---\n{test_code}")
+    print("--- Execution Start ---")
 
     try:
         # 1. Lexer
@@ -322,10 +320,10 @@ if __name__ == '__main__':
         interpreter.run(ast)
 
     except SyntaxError as e:
-        print(f"\n!!! ERRO DE SINTAXE: {e}")
+        print(f"\n!!! SYNTAX ERROR: {e}")
     except RuntimeError as e:
-        print(f"\n!!! ERRO DE EXECUÇÃO: {e}")
+        print(f"\n!!! RUNTIME ERROR: {e}")
     except Exception as e:
-        print(f"\n!!! ERRO INESPERADO: {e}")
+        print(f"\n!!! UNEXPECTED ERROR: {e}")
 
-    print("--- Fim da Execução ---")
+    print("--- Execution End ---")

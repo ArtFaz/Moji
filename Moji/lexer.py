@@ -1,6 +1,6 @@
 # moji/lexer.py
 
-# Importa as definições de Token e o mapa de Emojis do arquivo token.py
+# Import Token definitions and the Emoji map from token.py
 from .token import (
     Token, EMOJI_KEYWORDS,
     TT_LIT_INT, TT_LIT_REAL, TT_LIT_STRING,
@@ -9,33 +9,32 @@ from .token import (
 
 
 ################################################################################
-# 1. CLASSE LEXER
-# Responsável por pegar o texto-fonte e quebrá-lo em uma lista de Tokens.
+# 1. LEXER CLASS
+# Responsible for taking the source text and breaking it into a list of Tokens.
 ################################################################################
 
 class Lexer:
     def __init__(self, text):
         self.text = text
-        self.pos = 0  # Posição atual no texto
+        self.pos = 0  # Current position in the text
         self.current_char = self.text[self.pos] if self.pos < len(self.text) else None
 
     def error(self, message):
-        """ Lança uma exceção em caso de erro léxico. """
-        # Você pode tornar isso mais robusto no futuro (ex: com números de linha/coluna)
-        raise Exception(f"Erro Léxico: {message}")
+        """ Raises an exception in case of a lexical error. """
+        raise Exception(f"Lexical Error: {message}")
 
     def advance(self):
-        """ Move o ponteiro `pos` para o próximo caractere no texto. """
+        """ Moves the `pos` pointer to the next character in the text. """
         self.pos += 1
         if self.pos < len(self.text):
             self.current_char = self.text[self.pos]
         else:
-            self.current_char = None  # Indica Fim do Arquivo (EOF)
+            self.current_char = None  # Indicates End Of File (EOF)
 
     def peek(self, n=1):
         """
-        Olha 'n' caracteres à frente (lookahead) sem consumir o caractere.
-        Retorna None se estiver fora dos limites.
+        Looks 'n' characters ahead (lookahead) without consuming the character.
+        Returns None if out of bounds.
         """
         peek_pos = self.pos + n
         if peek_pos < len(self.text):
@@ -43,27 +42,27 @@ class Lexer:
         return None
 
     def skip_whitespace(self):
-        """ Pula caracteres de espaço em branco (espaço, tab, newline). """
+        """ Skips whitespace characters (space, tab, newline). """
         while self.current_char is not None and self.current_char in ' \t\n\r':
             self.advance()
 
     def skip_comment(self):
-        """ Pula uma linha inteira de comentário (tudo após '💭'). """
-        # Avança além do emoji '💭'
+        """ Skips an entire line of commentary (everything after '💭'). """
+        # Advances past the '💭' emoji
         self.advance()
-        # Continua avançando até encontrar uma nova linha ou o fim do arquivo
+        # Continues advancing until a newline or EOF is found
         while self.current_char is not None and self.current_char != '\n':
             self.advance()
 
     def make_number(self):
-        """ Processa um número (inteiro ou real). """
+        """ Processes a number (integer or real). """
         num_str = ''
         dot_count = 0
 
         while self.current_char is not None and (self.current_char.isdigit() or self.current_char == '.'):
             if self.current_char == '.':
                 if dot_count == 1:
-                    break  # Segundo ponto decimal, para o loop
+                    break  # Second decimal point, stop the loop
                 dot_count += 1
             num_str += self.current_char
             self.advance()
@@ -74,51 +73,51 @@ class Lexer:
             return Token(TT_LIT_REAL, float(num_str))
 
     def make_string(self):
-        """ Processa uma string literal (entre aspas). """
+        """ Processes a string literal (between quotes). """
         str_val = ''
-        self.advance()  # Pula o '"' inicial
+        self.advance()  # Skip the initial '"'
 
         while self.current_char is not None and self.current_char != '"':
             str_val += self.current_char
             self.advance()
 
         if self.current_char is None:
-            self.error("String não fechada.")
+            self.error("Unterminated string.")
 
-        self.advance()  # Pula o '"' final
+        self.advance()  # Skip the final '"'
         return Token(TT_LIT_STRING, str_val)
 
     def make_identifier(self):
-        """ Processa um identificador (nome de variável/função). """
+        """ Processes an identifier (variable/function name). """
         ident_str = ''
-        # Nomes podem conter letras, números (mas não no início) e underscore
+        # Names can contain letters, numbers (but not at the start), and underscore
         while self.current_char is not None and (self.current_char.isalnum() or self.current_char == '_'):
             ident_str += self.current_char
             self.advance()
 
-        # Nota: Por enquanto, não estamos verificando se palavras-chave (como 'if')
-        # são usadas como identificadores, pois nossas palavras-chave são emojis.
+        # Since our keywords are emojis, we don't need to check if an
+        # identifier is a reserved keyword.
         return Token(TT_IDENTIFIER, ident_str)
 
     def make_tokens(self):
         """
-        O método principal. Gera uma lista de todos os tokens do texto-fonte.
+        The main method. Generates a list of all tokens from the source text.
         """
         tokens = []
 
         while self.current_char is not None:
 
-            # 1. Pular Espaços em Branco
+            # 1. Skip Whitespace
             if self.current_char in ' \t\n\r':
                 self.advance()
                 continue
 
-            # 2. Pular Comentários
+            # 2. Skip Comments
             if self.current_char == '💭':
                 self.skip_comment()
                 continue
 
-            # 3. Números (Inteiros e Reais)
+            # 3. Numbers (Integers and Reals)
             if self.current_char.isdigit():
                 tokens.append(self.make_number())
                 continue
@@ -128,26 +127,26 @@ class Lexer:
                 tokens.append(self.make_string())
                 continue
 
-            # 5. Identificadores (Nomes de variáveis)
+            # 5. Identifiers (Variable names)
             if self.current_char.isalpha() or self.current_char == '_':
                 tokens.append(self.make_identifier())
                 continue
 
-            # 6. Emojis (com Lookahead)
+            # 6. Emojis (with Lookahead)
 
-            # --- Lógica de Lookahead ---
-            # Primeiro, tentamos ver se é um token de 2 caracteres
+            # --- Lookahead Logic ---
+            # First, we try to see if it's a 2-character token
             peeked_char = self.peek()
             if peeked_char is not None:
                 two_char_emoji = self.current_char + peeked_char
                 if two_char_emoji in EMOJI_KEYWORDS:
                     token_type = EMOJI_KEYWORDS[two_char_emoji]
                     tokens.append(Token(token_type, two_char_emoji))
-                    self.advance()  # Avança o 1º caractere
-                    self.advance()  # Avança o 2º caractere
+                    self.advance()  # Advance 1st char
+                    self.advance()  # Advance 2nd char
                     continue
 
-            # Se não for um token de 2 caracteres, tentamos um de 1 caractere
+            # If it's not a 2-character token, try a 1-character one
             if self.current_char in EMOJI_KEYWORDS:
                 token_type = EMOJI_KEYWORDS[self.current_char]
                 emoji_val = self.current_char
@@ -155,45 +154,45 @@ class Lexer:
                 self.advance()
                 continue
 
-            # 7. Erro
-            # Se chegou até aqui, não reconhecemos o caractere
-            self.error(f"Caractere ilegal ou emoji desconhecido: '{self.current_char}'")
+            # 7. Error
+            # If it got this far, we don't recognize the character
+            self.error(f"Illegal character or unknown emoji: '{self.current_char}'")
 
-        # Fim do loop, adiciona o token de Fim de Arquivo
+        # End of loop, add the End Of File token
         tokens.append(Token(TT_EOF))
         return tokens
 
 
 ################################################################################
-# 3. Bloco de Teste
-# (Para executar este arquivo diretamente: python -m moji.lexer)
+# 3. Test Block
+# (To run this file directly: python -m moji.lexer)
 ################################################################################
 
 if __name__ == '__main__':
-    # Código de exemplo do seu "hello_world.moji"
+    # Example code from your "hello_world.moji"
     test_code = """
-    🌱 💭 Este é um programa de teste!
+    🌱 💭 This is a test program!
 
-    💬 meuNome 👉 "Mojji" 🔚
-    🖨️ "Olá, " ➕ meuNome 🔚
+    💬 myName 👉 "Mojji" 🔚
+    🖨️ "Hello, " ➕ myName 🔚
 
     🔢 x 👉 10 🔚
     🤔 x ⚖️ 10 📦
-        🖨️ "x é 10!" 🔚
+        🖨️ "x is 10!" 🔚
     📦⛔
 
     🌳
     """
 
-    print(f"--- Testando Lexer com o código: ---\n{test_code}")
+    print(f"--- Testing Lexer with code: ---\n{test_code}")
 
     try:
         lexer = Lexer(test_code)
         tokens = lexer.make_tokens()
 
-        print("--- Tokens Gerados ---")
+        print("--- Generated Tokens ---")
         for token in tokens:
             print(token)
 
     except Exception as e:
-        print(f"\n!!! ERRO NO LEXER: {e}")
+        print(f"\n!!! LEXER ERROR: {e}")

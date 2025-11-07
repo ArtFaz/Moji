@@ -8,31 +8,31 @@ from Moji.interpreter import Interpreter, RuntimeError
 
 
 def main():
-    # 1. Verificar se um arquivo foi fornecido
+    # 1. Check if a file was provided
     if len(sys.argv) != 2:
-        print("Uso: python main.py <arquivo.moji>")
+        print("Usage: python main.py <file.moji>")
         sys.exit(1)
 
     filepath = sys.argv[1]
 
-    # 2. Verificar se o arquivo existe
+    # 2. Check if the file exists
     if not os.path.exists(filepath):
-        print(f"Erro: Arquivo não encontrado em '{filepath}'")
+        print(f"Error: File not found at '{filepath}'")
         sys.exit(1)
 
-    # 3. Ler o código do arquivo (com encoding UTF-8 para os emojis)
+    # 3. Read the code from the file (with UTF-8 encoding for emojis)
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             code = f.read()
     except Exception as e:
-        print(f"Erro ao ler o arquivo: {e}")
+        print(f"Error reading the file: {e}")
         sys.exit(1)
 
     if not code:
-        print("Arquivo está vazio.")
+        print("File is empty.")
         return
 
-    # 4. Executar a esteira (Lexer -> Parser -> Interpreter)
+    # 4. Run the pipeline (Lexer -> Parser -> Interpreter)
     try:
         # Lexer
         lexer = Lexer(code)
@@ -47,18 +47,18 @@ def main():
         interpreter.run(ast)
 
     except SyntaxError as e:
-        # Erro pego pelo Parser
-        print(f"!!! Erro de Sintaxe !!!")
+        # Error caught by the Parser
+        print(f"!!! Syntax Error !!!")
         print(e)
 
     except RuntimeError as e:
-        # Erro pego pelo Interpreter
-        print(f"!!! Erro de Execução !!!")
+        # Error caught by the Interpreter
+        print(f"!!! Runtime Error !!!")
         print(e)
 
     except Exception as e:
-        # Outro erro inesperado (provavelmente um bug no interpretador)
-        print(f"!!! Erro Inesperado (Python) !!!")
+        # Other unexpected error (likely a bug in the interpreter itself)
+        print(f"!!! Unexpected Error (Python) !!!")
         print(e)
         import traceback
         traceback.print_exc()

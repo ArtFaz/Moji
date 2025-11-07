@@ -1,17 +1,17 @@
 # moji/token.py
 
 ################################################################################
-# 1. CLASSE TOKEN
-# Representa um único token encontrado pelo Lexer.
+# 1. TOKEN CLASS
+# Represents a single token found by the Lexer.
 ################################################################################
 
 class Token:
     """
-    Um objeto simples para armazenar o tipo do token e seu valor (opcional).
+    A simple object to store the token type and its (optional) value.
 
-    Atributos:
-        type (str): O tipo do token (ex: TT_OP_PLUS, TT_LIT_INT).
-        value (any): O valor do token (ex: 123, "olá", ou o próprio emoji '➕').
+    Attributes:
+        type (str): The type of the token (e.g., TT_OP_PLUS, TT_LIT_INT).
+        value (any): The value of the token (e.g., 123, "hello", or the emoji '➕' itself).
     """
 
     def __init__(self, type, value=None):
@@ -20,7 +20,7 @@ class Token:
 
     def __repr__(self):
         """
-        Uma representação amigável para debug, ex: Token(TT_LIT_INT:123)
+        A friendly representation for debugging, e.g.: Token(TT_LIT_INT:123)
         """
         if self.value is not None:
             return f'Token({self.type}:{self.value})'
@@ -28,94 +28,92 @@ class Token:
 
 
 ################################################################################
-# 2. CONSTANTES DE TIPOS DE TOKEN (TT = Token Type)
+# 2. TOKEN TYPE CONSTANTS (TT = Token Type)
 ################################################################################
 
-# --- Tokens que não são emojis (Literais, Identificadores) ---
+# --- Non-Emoji Tokens (Literals, Identifiers) ---
 
-# Um nome de variável (ex: 'idade')
+# A variable name (e.g., 'age')
 TT_IDENTIFIER = 'IDENTIFIER'
 
-# Literais (valores brutos)
-TT_LIT_INT = 'LIT_INT'  # Ex: 10, 25
-TT_LIT_REAL = 'LIT_REAL'  # Ex: 3.14
-TT_LIT_STRING = 'LIT_STRING'  # Ex: "Olá, mundo!"
+# Literals (raw values)
+TT_LIT_INT = 'LIT_INT'      # e.g.: 10, 25
+TT_LIT_REAL = 'LIT_REAL'    # e.g.: 3.14
+TT_LIT_STRING = 'LIT_STRING'  # e.g.: "Hello, world!"
 
-# Fim do arquivo
+# End of file
 TT_EOF = 'EOF'  # End Of File
 
-# --- Estrutura do Programa ---
+# --- Program Structure ---
 TT_PROGRAM_START = 'PROGRAM_START'  # 🌱
-TT_PROGRAM_END = 'PROGRAM_END'  # 🌳
+TT_PROGRAM_END = 'PROGRAM_END'      # 🌳
 
-# --- Blocos de Código ---
+# --- Code Blocks ---
 TT_BLOCK_START = 'BLOCK_START'  # 📦
-TT_BLOCK_END = 'BLOCK_END'  # 📦⛔
+TT_BLOCK_END = 'BLOCK_END'      # 📦⛔
 
-# --- Declaração de Variáveis (Palavras-chave) ---
-TT_KEYWORD_INT = 'KEYWORD_INT'  # 🔢
-TT_KEYWORD_REAL = 'KEYWORD_REAL'  # 👽
+# --- Variable Declaration (Keywords) ---
+TT_KEYWORD_INT = 'KEYWORD_INT'      # 🔢
+TT_KEYWORD_REAL = 'KEYWORD_REAL'    # 👽
 TT_KEYWORD_STRING = 'KEYWORD_STRING'  # 💬
 
-# --- Input / Output (Palavras-chave) ---
-TT_KEYWORD_READ = 'KEYWORD_READ'  # 👀
+# --- Input / Output (Keywords) ---
+TT_KEYWORD_READ = 'KEYWORD_READ'    # 👀
 TT_KEYWORD_PRINT = 'KEYWORD_PRINT'  # 🖨️
 
-# --- Operações Matemáticas ---
-TT_OP_PLUS = 'OP_PLUS'  # ➕
+# --- Mathematical Operations ---
+TT_OP_PLUS = 'OP_PLUS'    # ➕
 TT_OP_MINUS = 'OP_MINUS'  # ➖
-TT_OP_MUL = 'OP_MUL'  # ✖️
-TT_OP_DIV = 'OP_DIV'  # ➗
+TT_OP_MUL = 'OP_MUL'      # ✖️
+TT_OP_DIV = 'OP_DIV'      # ➗
 
-# --- Atribuição ---
+# --- Assignment ---
 TT_ASSIGN = 'ASSIGN'  # 👉
 
-# --- Sintaxe ---
-TT_COMMENT = 'COMMENT'  # 💭 (O Lexer pode ignorar isso)
+# --- Syntax ---
+TT_COMMENT = 'COMMENT'          # 💭
 TT_END_STATEMENT = 'END_STATEMENT'  # 🔚
 
-# --- Condicionais (Palavras-chave) ---
-TT_KEYWORD_IF = 'KEYWORD_IF'  # 🤔
+# --- Conditionals (Keywords) ---
+TT_KEYWORD_IF = 'KEYWORD_IF'      # 🤔
 TT_KEYWORD_ELIF = 'KEYWORD_ELIF'  # 🔀
 TT_KEYWORD_ELSE = 'KEYWORD_ELSE'  # 🤨
 
-# --- Funções (Palavras-chave) ---
-TT_KEYWORD_FUN = 'KEYWORD_FUN'  # 🧩
+# --- Functions (Keywords) ---
+TT_KEYWORD_FUN = 'KEYWORD_FUN'        # 🧩
 TT_KEYWORD_RETURN = 'KEYWORD_RETURN'  # 🔙
 
-# --- Lógica & Comparação ---
-TT_COMP_EQ = 'COMP_EQ'  # ⚖️ (Igual a)
-TT_COMP_GT = 'COMP_GT'  # ⬆️ (Maior que)
-TT_COMP_LT = 'COMP_LT'  # ⬇️ (Menor que)
-TT_LOGIC_NOT = 'LOGIC_NOT'  # 🚫 (Negação)
+# --- Logic & Comparison ---
+TT_COMP_EQ = 'COMP_EQ'      # ⚖️ (Equal to)
+TT_COMP_GT = 'COMP_GT'      # ⬆️ (Greater than)
+TT_COMP_LT = 'COMP_LT'      # ⬇️ (Less than)
+TT_LOGIC_NOT = 'LOGIC_NOT'  # 🚫 (Negation)
 
-# --- Listas (Palavras-chave) ---
-TT_KEYWORD_LIST = 'KEYWORD_LIST'  # 📜
+# --- Lists (Keywords) ---
+TT_KEYWORD_LIST = 'KEYWORD_LIST'      # 📜
 TT_KEYWORD_APPEND = 'KEYWORD_APPEND'  # ➕📜
 TT_KEYWORD_REMOVE = 'KEYWORD_REMOVE'  # ➖📜
 
-# --- Sistema (Palavras-chave) ---
+# --- System (Keywords) ---
 TT_KEYWORD_IMPORT = 'KEYWORD_IMPORT'  # ⚙️
-TT_KEYWORD_SAVE = 'KEYWORD_SAVE'  # 💾
-TT_KEYWORD_SLEEP = 'KEYWORD_SLEEP'  # ⏱️
+TT_KEYWORD_SAVE = 'KEYWORD_SAVE'      # 💾
+TT_KEYWORD_SLEEP = 'KEYWORD_SLEEP'    # ⏱️
 
 ################################################################################
-# 3. MAPEAMENTO DE EMOJIS (Para ajudar o Lexer)
-# Mapeia o caractere emoji para seu TIPO de token correspondente.
+# 3. EMOJI MAPPING
+# Maps the emoji character to its corresponding token TYPE.
 ################################################################################
 
-# Este dicionário será usado pelo Lexer para identificar rapidamente
-# os tokens de um único caractere (ou emoji).
 EMOJI_KEYWORDS = {
-    # Estrutura
+    # Structure
     '🌱': TT_PROGRAM_START,
     '🌳': TT_PROGRAM_END,
 
-    # Blocos
+    # Blocks
     '📦': TT_BLOCK_START,
-    '📦⛔': TT_BLOCK_END,  # Nota: Este tem 2 caracteres, o Lexer precisará tratar isso
+    '📦⛔': TT_BLOCK_END,
 
-    # Variáveis
+    # Variables
     '🔢': TT_KEYWORD_INT,
     '👽': TT_KEYWORD_REAL,
     '💬': TT_KEYWORD_STRING,
@@ -124,40 +122,40 @@ EMOJI_KEYWORDS = {
     '👀': TT_KEYWORD_READ,
     '🖨️': TT_KEYWORD_PRINT,
 
-    # Matemática
+    # Math
     '➕': TT_OP_PLUS,
     '➖': TT_OP_MINUS,
     '✖️': TT_OP_MUL,
     '➗': TT_OP_DIV,
 
-    # Atribuição
+    # Assignment
     '👉': TT_ASSIGN,
 
-    # Sintaxe
+    # Syntax
     '💭': TT_COMMENT,
     '🔚': TT_END_STATEMENT,
 
-    # Condicionais
+    # Conditionals
     '🤔': TT_KEYWORD_IF,
     '🔀': TT_KEYWORD_ELIF,
     '🤨': TT_KEYWORD_ELSE,
 
-    # Funções
+    # Functions
     '🧩': TT_KEYWORD_FUN,
     '🔙': TT_KEYWORD_RETURN,
 
-    # Lógica
+    # Logic
     '⚖️': TT_COMP_EQ,
     '⬆️': TT_COMP_GT,
     '⬇️': TT_COMP_LT,
     '🚫': TT_LOGIC_NOT,
 
-    # Listas
+    # Lists
     '📜': TT_KEYWORD_LIST,
-    '➕📜': TT_KEYWORD_APPEND,  # Nota: 2 caracteres
-    '➖📜': TT_KEYWORD_REMOVE,  # Nota: 2 caracteres
+    '➕📜': TT_KEYWORD_APPEND,
+    '➖📜': TT_KEYWORD_REMOVE,
 
-    # Sistema
+    # System
     '⚙️': TT_KEYWORD_IMPORT,
     '💾': TT_KEYWORD_SAVE,
     '⏱️': TT_KEYWORD_SLEEP,

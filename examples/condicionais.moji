@@ -1,0 +1,40 @@
+🌱
+💭 Teste de Lógica e Condicionais.
+
+🔢 x 👉 10 🔚
+🔢 y 👉 20 🔚
+
+🖨️ "--- Teste 1 (Igualdade ⚖️) ---" 🔚
+🤔 x ⚖️ 10 📦
+    🖨️ "x é 10!" 🔚
+📦⛔
+
+🖨️ "--- Teste 2 (Maior que ⬆️) ---" 🔚
+🤔 y ⬆️ 10 📦
+    🖨️ "y é maior que 10." 🔚
+📦⛔
+
+🖨️ "--- Teste 3 (Menor que ⬇️) ---" 🔚
+🤔 x ⬇️ y 📦
+    🖨️ "x é menor que y." 🔚
+📦⛔
+
+🖨️ "--- Teste 4 (IF 🔀 ELIF 🤨 ELSE) ---" 🔚
+🔢 valor 👉 7 🔚
+
+💭 A sintaxe correta é ter os blocos na mesma "linha" lógica
+🤔 valor ⬆️ 10 📦
+    🖨️ "Valor é maior que 10." 🔚
+📦⛔ 🔀 valor ⚖️ 7 📦
+    🖨️ "Valor é exatamente 7." 🔚
+📦⛔ 🤨 📦
+    🖨️ "Valor é menor que 7." 🔚
+📦⛔
+
+🖨️ "--- Teste 5 (Negação 🚫) ---" 🔚
+🔢 flag 👉 0 🔚 💭 Na lógica Moji, 0 é 'False'
+🤔 🚫 flag 📦
+    🖨️ "A flag é falsa!" 🔚
+📦⛔
+
+🌳
