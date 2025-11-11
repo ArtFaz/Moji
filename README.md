@@ -87,7 +87,7 @@ We offer two easy ways to run your Moji code.
 
 No installation required! We have prepared a Google Colab notebook that lets you write and run Moji code directly in your browser. This is the fastest and easiest way to try Moji.
 
-**[➡️ Click here to open the Moji Playground on Google Colab](LINKTBD)**
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ArtFaz/Moji/blob/main/PlaygroundMoji.ipynb)
 
 ### 💻 Method 2: Run Locally (CLI)
 
