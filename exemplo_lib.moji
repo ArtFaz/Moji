@@ -1,0 +1,14 @@
+🌱
+💭 Este é um MÓDULO (biblioteca) para ser importado.
+
+🖨️ "--- Módulo 'exemplo_lib' carregado! ---" 🔚
+
+💭 Define uma variável global
+💬 libVar 👉 "Eu vim da biblioteca!" 🔚
+
+💭 Define uma função
+🧩 multiplicar a b 📦
+    🔙 a ✖️ b 🔚
+📦⛔
+
+🌳
