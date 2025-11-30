@@ -5,7 +5,10 @@ from .ast_nodes import (
     Node, ProgramNode, BlockNode, NumberNode, StringNode, VarAccessNode,
     BinOpNode, UnaryOpNode, VarDeclareNode, VarAssignNode, PrintNode,
     ReadNode, IfNode, FuncDefNode, ReturnNode, ListAppendNode,
-    ListRemoveNode, ImportNode, SaveNode, SleepNode
+    ListRemoveNode, ImportNode, SaveNode, SleepNode,
+    # (NOVOS NÓS IMPORTADOS)
+    WhileNode, ForNode, ListAccessNode, FileReadNode, TypeCastNode,
+    FuncCallNode, FileAppendNode
 )
 # Imports all token types that the Parser needs to recognize
 from .token import (
@@ -16,7 +19,10 @@ from .token import (
     TT_KEYWORD_ELIF, TT_KEYWORD_ELSE, TT_KEYWORD_FUN, TT_KEYWORD_RETURN,
     TT_COMP_EQ, TT_COMP_GT, TT_COMP_LT, TT_LOGIC_NOT, TT_KEYWORD_APPEND,
     TT_KEYWORD_REMOVE, TT_KEYWORD_IMPORT, TT_KEYWORD_SAVE, TT_KEYWORD_SLEEP,
-    TT_IDENTIFIER, TT_LIT_INT, TT_LIT_REAL, TT_LIT_STRING, TT_EOF
+    TT_IDENTIFIER, TT_LIT_INT, TT_LIT_REAL, TT_LIT_STRING, TT_EOF,
+    # (NOVOS TOKENS IMPORTADOS)
+    TT_KEYWORD_CALL, TT_KEYWORD_WHILE, TT_KEYWORD_FOR, TT_LOGIC_AND,
+    TT_LOGIC_OR, TT_KEYWORD_GET_AT, TT_KEYWORD_READ_FILE, TT_KEYWORD_APPEND_FILE
 )
 
 
@@ -124,6 +130,14 @@ class Parser:
         if token_type == TT_KEYWORD_IF:
             return self.if_statement()
 
+        # ⏳ ... (While Loop) (NOVO)
+        if token_type == TT_KEYWORD_WHILE:
+            return self.while_statement()
+
+        # 🚶 ... (For Loop) (NOVO)
+        if token_type == TT_KEYWORD_FOR:
+            return self.for_statement()
+
         # 📦 ... 📦⛔ (Block)
         if token_type == TT_BLOCK_START:
             return self.block()
@@ -141,6 +155,8 @@ class Parser:
             return self.import_statement()
         if token_type == TT_KEYWORD_SAVE:
             return self.save_statement()
+        if token_type == TT_KEYWORD_APPEND_FILE:  # (NOVO)
+            return self.file_append_statement()
         if token_type == TT_KEYWORD_SLEEP:
             return self.sleep_statement()
 
@@ -247,6 +263,22 @@ class Parser:
 
         return IfNode(cases, else_case)
 
+    def while_statement(self):  # (NOVO)
+        """ Parses: ⏳ <condition> 📦 ... 📦⛔ """
+        self.eat(TT_KEYWORD_WHILE)
+        condition_node = self.expression()
+        body_node = self.block()
+        return WhileNode(condition_node, body_node)
+
+    def for_statement(self):  # (NOVO)
+        """ Parses: 🚶 <var_name> <list_expression> 📦 ... 📦⛔ """
+        self.eat(TT_KEYWORD_FOR)
+        var_name_token = self.current_token
+        self.eat(TT_IDENTIFIER)
+        list_node = self.expression()
+        body_node = self.block()
+        return ForNode(var_name_token, list_node, body_node)
+
     def block(self):
         """ Parses: 📦 <list_of_statements> 📦⛔ """
         self.eat(TT_BLOCK_START)
@@ -283,7 +315,7 @@ class Parser:
         self.eat(TT_END_STATEMENT)
         return ReturnNode(node_to_return)
 
-    # System commands (simple)
+    # System commands
     def import_statement(self):
         self.eat(TT_KEYWORD_IMPORT)
         module_name_token = self.current_token
@@ -297,6 +329,14 @@ class Parser:
         filename_node = self.expression()  # e.g.: 💾 variable "file.txt" 🔚
         self.eat(TT_END_STATEMENT)
         return SaveNode(data_node, filename_node)
+
+    def file_append_statement(self):  # (NOVO)
+        """ Parses: ✍️ <data> <filename> 🔚 """
+        self.eat(TT_KEYWORD_APPEND_FILE)
+        data_node = self.expression()
+        filename_node = self.expression()
+        self.eat(TT_END_STATEMENT)
+        return FileAppendNode(data_node, filename_node)
 
     def sleep_statement(self):
         self.eat(TT_KEYWORD_SLEEP)
@@ -321,12 +361,21 @@ class Parser:
 
         return left
 
-    def expression(self):
-        """ Entry point for any expression. (Lowest precedence level) """
-        return self.comparison()
+    def expression(self):  # (ATUALIZADO)
+        """ Entry point for any expression. (Lowest precedence: 🌀) """
+        return self.logic_or()
+
+    def logic_or(self):  # (NOVO)
+        """ Parses: 🌀 (Logical OR) """
+        return self.binary_operation(self.logic_and, (TT_LOGIC_OR,))
+
+    def logic_and(self):  # (NOVO)
+        """ Parses: 🤝 (Logical AND) """
+        return self.binary_operation(self.comparison, (TT_LOGIC_AND,))
 
     def comparison(self):
         """ Parses: ⚖️, ⬆️, ⬇️ """
+        # (ATUALIZADO: agora chama self.term)
         return self.binary_operation(self.term, (TT_COMP_EQ, TT_COMP_GT, TT_COMP_LT))
 
     def term(self):
@@ -335,6 +384,7 @@ class Parser:
 
     def factor(self):
         """ Parses: ✖️, ➗ """
+        # (ATUALIZADO: agora chama self.unary)
         return self.binary_operation(self.unary, (TT_OP_MUL, TT_OP_DIV))
 
     def unary(self):
@@ -344,11 +394,25 @@ class Parser:
             self.eat(TT_LOGIC_NOT)
             node = self.unary()  # Recursive call to allow '🚫🚫x'
             return UnaryOpNode(op_token, node)
-        return self.atom()
+        # (ATUALIZADO: agora chama self.accessor)
+        return self.accessor()
 
-    def atom(self):
+    def accessor(self):  # (NOVO)
+        """ Parses list access: 🎯 (Get At) """
+        node = self.atom()  # Get the base atom (e.g., myList)
+
+        # Allow chaining: myList 🎯 0 🎯 1
+        while self.current_token.type == TT_KEYWORD_GET_AT:
+            self.eat(TT_KEYWORD_GET_AT)
+            index_node = self.expression()  # The index can be a full expression
+            node = ListAccessNode(node, index_node)  # Wrap the previous node
+
+        return node
+
+    def atom(self):  # (ATUALIZADO)
         """
-        Processes the "atoms" of the grammar: numbers, strings, var names.
+        Processes the "atoms" of the grammar: numbers, strings, var names,
+        function calls, type casts, etc.
         (Highest precedence level).
         """
         token = self.current_token
@@ -361,12 +425,52 @@ class Parser:
             self.eat(TT_LIT_STRING)
             return StringNode(token)
 
+        # (NOVO) Type Casting: 🔢 "123"
+        elif token.type in (TT_KEYWORD_INT, TT_KEYWORD_REAL, TT_KEYWORD_STRING):
+            type_token = self.current_token
+            self.advance()
+            value_to_cast = self.expression()  # Parse the expression to cast
+            return TypeCastNode(type_token, value_to_cast)
+
+        # (NOVO) File Read: 📖 "file.txt"
+        elif token.type == TT_KEYWORD_READ_FILE:
+            self.eat(TT_KEYWORD_READ_FILE)
+            filename_node = self.expression()  # Parse the filename expression
+            return FileReadNode(filename_node)
+
+        # (NOVO) Function Call: 📞 myFunc arg1 (arg2 ➕ 1) ...
+        elif token.type == TT_KEYWORD_CALL:
+            self.eat(TT_KEYWORD_CALL)
+
+            if self.current_token.type != TT_IDENTIFIER:
+                raise SyntaxError("Expected function name after 📞")
+
+            node_to_call = VarAccessNode(self.current_token)
+            self.eat(TT_IDENTIFIER)
+
+            arg_nodes = []
+
+            # This set helps us guess if the next token is the START of an argument
+            ATOM_START_TOKENS = (
+                TT_LIT_INT, TT_LIT_REAL, TT_LIT_STRING,
+                TT_IDENTIFIER, TT_KEYWORD_CALL, TT_KEYWORD_READ_FILE,
+                TT_KEYWORD_INT, TT_KEYWORD_REAL, TT_KEYWORD_STRING,
+                TT_LOGIC_NOT  # Unary operator
+            )
+
+            # Keep parsing arguments (which are full expressions)
+            # as long as the current token looks like the start of one.
+            while self.current_token.type in ATOM_START_TOKENS:
+                arg_nodes.append(self.expression())
+
+            return FuncCallNode(node_to_call, arg_nodes)
+
         elif token.type == TT_IDENTIFIER:
             self.eat(TT_IDENTIFIER)
             return VarAccessNode(token)  # Accessing a variable
 
         # If it's none of the above, it's a syntax error in the expression
-        raise SyntaxError(f"Expected an Integer, Real, String, or Identifier, but found: {token}")
+        raise SyntaxError(f"Expected an expression atom (Number, String, Identifier, 📞, 📖, 🔢...), but found: {token}")
 
 
 ################################################################################
@@ -411,4 +515,7 @@ if __name__ == '__main__':
         print(ast)
 
     except Exception as e:
+        import traceback
+
+        traceback.print_exc()
         print(f"\n!!! PARSER ERROR: {e}")
