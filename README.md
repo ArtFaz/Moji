@@ -1,16 +1,18 @@
 # Moji 🐻 
 ### An Emoji-Powered Programming Language
 
-[![Status](https://img.shields.io/badge/status-stable-green.svg)](https://github.com/ArtFaz/Moji)
-[![Latest Release](https://img.shields.io/github/v/release/ArtFaz/Moji)](https://github.com/ArtFaz/moji/releases/latest)
-[![Language](https://img.shields.io/badge/language-Python-blue.svg)](https://www.python.org/) 
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg?style=for-the-badge&logo=googletranslate&logoColor=white)](https://github.com/ArtFaz/Moji/blob/main/README_PTBR.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg?style=for-the-badge&logo=googletranslate&logoColor=white)](https://github.com/ArtFaz/Moji/blob/main/README.md)
+
+[![Status](https://img.shields.io/badge/status-stable-green.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ArtFaz/Moji)
+[![Latest Release](https://img.shields.io/github/v/release/ArtFaz/Moji?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ArtFaz/moji/releases/latest)
+[![Language](https://img.shields.io/badge/language-Python-3776AB.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/) 
+[![License](https://img.shields.io/badge/license-MIT-gold.svg?style=for-the-badge)](LICENSE)
 
 Moji is a fully functional interpreter for a programming language that uses emojis as its core syntax. Instead of `if`, `else`, or `print`, Moji uses `🤔`, `🤨`, and `🖨️`. 
 
 This project was created as the final assignment for the Compiler course at Unisagrado.
 
-___
 
 ## ✨ Features
 
