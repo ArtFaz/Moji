@@ -1,0 +1,19 @@
+🌱
+💭 Este arquivo demonstra o Import (⚙️).
+
+🖨️ "--- Teste 7: Import (⚙️) ---" 🔚
+
+💭 Importa o arquivo 'exemplo_lib.moji'
+💭 (O .moji é omitido, como em Python)
+⚙️ exemplo_lib 🔚
+
+🖨️ "--- Teste Pós-Import ---" 🔚
+
+💭 1. Tenta acessar a variável da lib
+🖨️ "Variável importada: " ➕ libVar 🔚
+
+💭 2. Tenta chamar a função da lib
+🔢 resultadoLib 👉 📞 multiplicar 7 3 🔚
+🖨️ "Resultado da função importada (7 * 3): " ➕ resultadoLib 🔚
+
+🌳

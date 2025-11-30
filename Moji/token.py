@@ -82,22 +82,33 @@ TT_KEYWORD_ELSE = 'KEYWORD_ELSE'  # 🤨
 # --- Functions (Keywords) ---
 TT_KEYWORD_FUN = 'KEYWORD_FUN'        # 🧩
 TT_KEYWORD_RETURN = 'KEYWORD_RETURN'  # 🔙
+TT_KEYWORD_CALL = 'KEYWORD_CALL'      # 📞 (NOVO)
+
+# --- Loops (Keywords) --- (NOVO)
+TT_KEYWORD_WHILE = 'KEYWORD_WHILE'  # ⏳ (NOVO)
+TT_KEYWORD_FOR = 'KEYWORD_FOR'      # 🚶 (NOVO)
 
 # --- Logic & Comparison ---
 TT_COMP_EQ = 'COMP_EQ'      # ⚖️ (Equal to)
 TT_COMP_GT = 'COMP_GT'      # ⬆️ (Greater than)
 TT_COMP_LT = 'COMP_LT'      # ⬇️ (Less than)
 TT_LOGIC_NOT = 'LOGIC_NOT'  # 🚫 (Negation)
+TT_LOGIC_AND = 'LOGIC_AND'    # 🤝 (NOVO)
+TT_LOGIC_OR = 'LOGIC_OR'      # 🌀 (NOVO)
 
 # --- Lists (Keywords) ---
 TT_KEYWORD_LIST = 'KEYWORD_LIST'      # 📜
 TT_KEYWORD_APPEND = 'KEYWORD_APPEND'  # ➕📜
 TT_KEYWORD_REMOVE = 'KEYWORD_REMOVE'  # ➖📜
+TT_KEYWORD_GET_AT = 'KEYWORD_GET_AT'  # 🎯 (NOVO)
 
 # --- System (Keywords) ---
 TT_KEYWORD_IMPORT = 'KEYWORD_IMPORT'  # ⚙️
 TT_KEYWORD_SAVE = 'KEYWORD_SAVE'      # 💾
 TT_KEYWORD_SLEEP = 'KEYWORD_SLEEP'    # ⏱️
+TT_KEYWORD_READ_FILE = 'KEYWORD_READ_FILE'    # 📖 (NOVO)
+TT_KEYWORD_APPEND_FILE = 'KEYWORD_APPEND_FILE'  # ✍️ (NOVO)
+
 
 ################################################################################
 # 3. EMOJI MAPPING
@@ -143,20 +154,30 @@ EMOJI_KEYWORDS = {
     # Functions
     '🧩': TT_KEYWORD_FUN,
     '🔙': TT_KEYWORD_RETURN,
+    '📞': TT_KEYWORD_CALL,       # (NOVO)
+
+    # Loops (NOVO)
+    '⏳': TT_KEYWORD_WHILE,
+    '🚶': TT_KEYWORD_FOR,
 
     # Logic
     '⚖️': TT_COMP_EQ,
     '⬆️': TT_COMP_GT,
     '⬇️': TT_COMP_LT,
     '🚫': TT_LOGIC_NOT,
+    '🤝': TT_LOGIC_AND,          # (NOVO)
+    '🌀': TT_LOGIC_OR,           # (NOVO)
 
     # Lists
     '📜': TT_KEYWORD_LIST,
     '➕📜': TT_KEYWORD_APPEND,
     '➖📜': TT_KEYWORD_REMOVE,
+    '🎯': TT_KEYWORD_GET_AT,       # (NOVO)
 
     # System
     '⚙️': TT_KEYWORD_IMPORT,
     '💾': TT_KEYWORD_SAVE,
     '⏱️': TT_KEYWORD_SLEEP,
+    '📖': TT_KEYWORD_READ_FILE,    # (NOVO)
+    '✍️': TT_KEYWORD_APPEND_FILE,  # (NOVO)
 }

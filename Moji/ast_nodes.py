@@ -84,7 +84,7 @@ class UnaryOpNode(Node):
         return f'({self.op_token.type} {self.node})'
 
 class FuncCallNode(Node):
-    """ Represents a function call (e.g., myFunc(a, b)). """
+    """ Represents a function call (e.g., 📞 myFunc arg1 arg2). """
     def __init__(self, node_to_call, arg_nodes):
         # node_to_call is usually a VarAccessNode (the function name)
         self.node_to_call = node_to_call
@@ -92,6 +92,32 @@ class FuncCallNode(Node):
 
     def __repr__(self):
         return f'Call({self.node_to_call} with {self.arg_nodes})'
+
+class ListAccessNode(Node): # (NOVO)
+    """ Represents accessing a list index (e.g., myList 🎯 0). """
+    def __init__(self, list_node, index_node):
+        self.list_node = list_node
+        self.index_node = index_node
+
+    def __repr__(self):
+        return f'ListAccess({self.list_node} at {self.index_node})'
+
+class FileReadNode(Node): # (NOVO)
+    """ Represents reading a file (e.g., 📖 "data.txt"). """
+    def __init__(self, filename_node):
+        self.filename_node = filename_node
+
+    def __repr__(self):
+        return f'FileRead({self.filename_node})'
+
+class TypeCastNode(Node): # (NOVO)
+    """ Represents type conversion (e.g., 🔢 "123"). """
+    def __init__(self, type_token, expression_node):
+        self.type_token = type_token
+        self.expression_node = expression_node
+
+    def __repr__(self):
+        return f'Cast(to {self.type_token.type} value: {self.expression_node})'
 
 
 ################################################################################
@@ -150,6 +176,25 @@ class IfNode(Node):
     def __repr__(self):
         return f'If(Cases: {self.cases}, Else: {self.else_case})'
 
+class WhileNode(Node): # (NOVO)
+    """ While loop statement ⏳. """
+    def __init__(self, condition_node, body_node):
+        self.condition_node = condition_node
+        self.body_node = body_node # A BlockNode
+
+    def __repr__(self):
+        return f'While({self.condition_node} do {self.body_node})'
+
+class ForNode(Node): # (NOVO)
+    """ For-each loop statement 🚶. """
+    def __init__(self, var_name_token, list_node, body_node):
+        self.var_name_token = var_name_token # Identifier token for the item
+        self.list_node = list_node # Expression node (the list to iterate)
+        self.body_node = body_node # A BlockNode
+
+    def __repr__(self):
+        return f'For(each {self.var_name_token.value} in {self.list_node} do {self.body_node})'
+
 class FuncDefNode(Node):
     """ Function definition 🧩. """
     def __init__(self, func_name_token, arg_name_tokens, body_node):
@@ -204,6 +249,15 @@ class SaveNode(Node):
 
     def __repr__(self):
         return f'Save({self.data_node} to {self.filename_node})'
+
+class FileAppendNode(Node): # (NOVO)
+    """ File append statement ✍️. """
+    def __init__(self, data_node, filename_node):
+        self.data_node = data_node
+        self.filename_node = filename_node
+
+    def __repr__(self):
+        return f'FileAppend({self.data_node} to {self.filename_node})'
 
 class SleepNode(Node):
     """ Sleep statement ⏱️. """

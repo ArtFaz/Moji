@@ -1,0 +1,72 @@
+🌱
+💭 Este arquivo demonstra as NOVAS funcionalidades do Moji.
+
+🖨️ "--- Teste 1: Funções (🧩, 📞, 🔙) ---" 🔚
+
+💭 Define uma função que soma dois números e retorna o resultado
+🧩 somar a b 📦
+    👽 resultado 👉 a ➕ b 🔚
+    🔙 resultado 🔚
+📦⛔
+
+💬 resultadoSoma 👉 📞 somar 5.5 10 🔚
+🖨️ "Resultado da função 'somar' (5.5 + 10): " ➕ resultadoSoma 🔚
+
+🖨️ "--- Teste 2: Loop While (⏳) ---" 🔚
+🔢 contador 👉 0 🔚
+⏳ contador ⬇️ 3 📦
+    🖨️ "Contador (while): " ➕ contador 🔚
+    contador 👉 contador ➕ 1 🔚
+📦⛔
+
+🖨️ "--- Teste 3: Loop For Each (🚶) e Acesso a Índice (🎯) ---" 🔚
+📜 minhaLista 🔚
+minhaLista ➕📜 "A" 🔚
+minhaLista ➕📜 "B" 🔚
+minhaLista ➕📜 "C" 🔚
+
+💭 Teste 3a: Loop For Each (🚶)
+🚶 item minhaLista 📦
+    🖨️ "Item da lista (for): " ➕ item 🔚
+📦⛔
+
+💭 Teste 3b: Acesso a Índice (🎯)
+💬 itemB 👉 minhaLista 🎯 1 🔚
+🖨️ "Item no índice 1 (🎯): " ➕ itemB 🔚
+
+🖨️ "--- Teste 4: Lógica AND (🤝) e OR (🌀) ---" 🔚
+🔢 a 👉 10 🔚
+🔢 b 👉 5 🔚
+
+💭 Teste 4a: AND (Verdadeiro)
+🤔 a ⚖️ 10 🤝 b ⚖️ 5 📦
+    🖨️ "AND (🤝): (10 == 10) E (5 == 5) é Verdadeiro!" 🔚
+📦⛔
+
+💭 Teste 4b: OR (Falso)
+🤔 a ⚖️ 99 🌀 b ⚖️ 99 📦
+    🖨️ "Este NÃO deve imprimir." 🔚
+📦⛔ 🤨 📦
+    🖨️ "OR (🌀): (10 == 99) OU (5 == 99) é Falso!" 🔚
+📦⛔
+
+🖨️ "--- Teste 5: I/O de Arquivo (✍️, 📖) ---" 🔚
+💬 arq 👉 "teste_avancado.txt" 🔚
+💾 "Linha 1 (criada com 💾)" ➕ "\n" arq 🔚
+✍️ "Linha 2 (anexada com ✍️)" ➕ "\n" arq 🔚
+
+🖨️ "Lendo o arquivo de volta (📖):" 🔚
+💬 conteudo 👉 📖 arq 🔚
+🖨️ conteudo 🔚
+
+🖨️ "--- Teste 6: Conversão de Tipo (Casting: 🔢, 💬) ---" 🔚
+💬 numString 👉 "123" 🔚
+🔢 numInt 👉 🔢 numString 🔚 💭 Converte string para int
+
+🔢 somaCast 👉 numInt ➕ 7 🔚
+🖨️ "Resultado do Cast (🔢 '123' + 7): " ➕ somaCast 🔚
+
+💬 strDeNum 👉 💬 somaCast 🔚 💭 Converte int para string
+🖨️ "Resultado do Cast (💬 130): " ➕ strDeNum 🔚
+
+🌳
