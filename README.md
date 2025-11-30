@@ -15,12 +15,11 @@ ___
 ## ✨ Features
 
 * **Expressive Syntax:** Write code using intuitive emojis.
-* **Core Logic:** Full support for variables and conditional logic (`if/elif/else`).
-* **Data Types:** Handles Integers (`🔢`), Reals/Floats (`👽`), and Strings (`💬`).
-* **I/O:** Print to the console (`🖨️`) and read user input (`👀`).
-* **Math Operations:** Standard arithmetic (`➕`, `➖`, `✖️`, `➗`).
-* **List Support:** Basic list creation (`📜`), append (`➕📜`), and remove (`➖📜`).
-* **System Tools:** Save to file (`💾`) and pause execution (`⏱️`).
+* **Core Logic:** Full support for variables, conditional logic (`if/elif/else`), and loops (`while`/`for`).
+* **Data Types:** Handles Integers (`🔢`), Reals/Floats (`👽`), Strings (`💬`), and Lists (`📜`).
+* **I/O:** Print (`🖨️`), Read Input (`👀`), and File Operations (`💾`/`📖`/`✍️`).
+* **Functions:** Define and call reusable code blocks (`🧩`/`📞`).
+* **Math & Logic:** Arithmetic (`➕`, `➖`...) and Boolean Logic (`🤝`, `🌀`, `🚫`).
 * **Built in Python:** Uses pure python 🐍 for every step involved.
 
 ## 👋 Hello, Moji!
@@ -45,7 +44,7 @@ Here’s a simple "Hello, World!" program in Moji that also shows variable math:
 
 ## 📖 The Great Moji-pedia (Language Reference)
 
-Bellow is the official dictionary for the Moji language.
+Below is the official dictionary for the Moji language.
 
 | Category | Emoji | Meaning | Description |
 |-----------|--------|----------|-------------|
@@ -53,9 +52,9 @@ Bellow is the official dictionary for the Moji language.
 | | 🌳 | End Program | Ends the program |
 | **Code Blocks** | 📦 | Start of Code Block | Opens a code block |
 | | 📦⛔ | End of Code Block | Closes a code block |
-| **Variables** | 🔢 | Integer | Declares an integer variable |
-| | 👽 | Real | Declares a real (float) variable |
-| | 💬 | String | Declares a string variable |
+| **Variables** | 🔢 | Integer | Declares an integer variable or casts to int |
+| | 👽 | Real | Declares a real (float) variable or casts to float |
+| | 💬 | String | Declares a string variable or casts to string |
 | | 📜 | List | Creates a list |
 | **Input / Output** | 👀 | Read | Reads input into a variable |
 | | 🖨️ | Print | Prints variable content |
@@ -69,15 +68,25 @@ Bellow is the official dictionary for the Moji language.
 | **Conditionals** | 🤔 | If | Executes if condition is true |
 | | 🔀 | Elif | Executes if another condition is true |
 | | 🤨 | Else | Executes if all conditions are false |
+| **Loops** | ⏳ | While | Loop while condition is true |
+| | 🚶 | For Each | Iterates through items in a list |
+| **Functions** | 🧩 | Define Function | Defines a new function |
+| | 📞 | Call Function | Calls/Executes a defined function |
+| | 🔙 | Return | Returns a value from a function |
 | **Logic & Comparison** | ⚖️ | Equals | Compares equality |
 | | ⬆️ | Greater Than | Checks if greater |
 | | ⬇️ | Less Than | Checks if smaller |
 | | 🚫 | Not | Logical negation |
+| | 🤝 | And | Logical AND |
+| | 🌀 | Or | Logical OR |
 | **Lists** | ➕📜 | Append | Adds item to a list |
 | | ➖📜 | Remove | Removes item from a list |
-| **System & Misc.** | 💾 | Save | Saves data |
+| | 🎯 | Get At | Access item at specific index |
+| **System & Misc.** | 💾 | Save | Saves data to a file (overwrite) |
+| | ✍️ | Append File | Appends data to a file |
+| | 📖 | Read File | Reads content from a file |
+| | ⚙️ | Import | Imports another .moji file |
 | | ⏱️ | Sleep | Waits or delays execution |
-
 
 ## 🏃‍♂️ How to Run Moji
 
@@ -136,6 +145,13 @@ Check the `/examples` folder for more sample code!
         <img src="https://avatars.githubusercontent.com/ArtFaz" width="80px" style="border-radius:50%;" alt="ArtFaz"/>
         <br />
         <sub><b>Arthur Fazioni</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/GabMartinezz">
+        <img src="https://avatars.githubusercontent.com/GabMartinezz" width="80px" style="border-radius:50%;" alt="GabMartinezz"/>
+        <br />
+        <sub><b>Gabriel Martinez</b></sub>
       </a>
     </td>
     <td align="center">
