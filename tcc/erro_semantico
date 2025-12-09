@@ -1,0 +1,10 @@
+🌱
+💭 Teste de Erro Semântico (Escopo/Variável não definida)
+
+🔢 numero 👉 10 🔚
+🖨️ "O numero é: " ➕ numero 🔚
+
+💭 A variável 'fantasma' nunca foi declarada com 🔢, 💬, etc.
+🖨️ fantasma 🔚
+
+🌳

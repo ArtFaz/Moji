@@ -1,0 +1,12 @@
+🌱
+💭 Teste de Erro de Runtime (Divisão por Zero)
+
+🔢 numerador 👉 50 🔚
+🔢 denominador 👉 0 🔚
+
+🖨️ "Tentando dividir..." 🔚
+
+💭 Isso é sintaticamente válido, mas falha na execução
+👽 resultado 👉 numerador ➗ denominador 🔚
+
+🌳
